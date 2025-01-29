@@ -1,5 +1,4 @@
 <?php
-echo date(DATE_ATOM); #Constante
-    
+echo date(DATE_ATOM);
 
 ?>
