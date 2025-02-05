@@ -215,7 +215,30 @@
     </p>
     <div>
         <?php
-        
+            $a = "0";
+            $b = "TRUE";
+            $c = FALSE;
+            $d = ($a OR $b);
+            $e = ($a AND $c);
+            $f = ($a XOR $b);
+            echo "<br />";
+            var_dump($a);  //False
+            echo "<br />";
+            var_dump($b); //True
+            echo "<br />";
+            var_dump($c); //False
+            echo "<br />";
+            var_dump($d); //True
+            echo "<br />";
+            var_dump($e); //False
+            echo "<br />";
+            var_dump($f); //True
+            echo "<br />";
+            echo "c = ";
+            echo var_export($c, true);
+            echo "<br />";
+            echo "e = ";
+            echo var_export($e, true);
         ?>
     </div>
 
