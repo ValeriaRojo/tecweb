@@ -251,7 +251,15 @@
     </p>
     <div>
         <?php
-        
+            //Inciso a
+            echo "Versión de Apache: " . $_SERVER['SERVER_SOFTWARE'] . "<br />";
+            echo "Versión de PHP: " . phpversion() . "<br />";
+            //Inciso b
+            echo "S.O. del servidor: " . PHP_OS . "<br />";
+
+            //Inciso c
+            echo "Idioma del navegador (cliente): " . $_SERVER['HTTP_ACCEPT_LANGUAGE'] . "<br />";
+    
         ?>
     </div>
 </body>
