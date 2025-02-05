@@ -142,7 +142,7 @@
             var_dump($a);
             echo "<br />";
 
-            $b *= intval($b);
+            @$b *= intval($b);
             $b *= $c;
             var_dump($b);
             echo "<br />";
@@ -150,7 +150,6 @@
             $z[0] = "MySQL";
             var_dump($z);
             echo "<br />";
-        
         ?>
     </div>
     <h2>Ejercicio 4</h2>
@@ -160,6 +159,23 @@
     </p>
     <div>
         <?php
+            echo "Valor de GLOBALS: a";
+            var_dump($GLOBALS['a']);
+            echo "<br />";
+
+            echo "Valor de GLOBALS: b";
+            var_dump($GLOBALS['b']);
+            echo "<br />";
+
+            echo "Valor de GLOBALS: c";
+            var_dump($GLOBALS['c']);
+            echo "<br />";
+
+            echo "Valor de GLOBALS: z";
+            var_dump($GLOBALS['z']);
+            echo "<br />";
+
+            unset($a, $b, $c, $z);
         
         ?>
     </div>
