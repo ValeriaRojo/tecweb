@@ -98,7 +98,7 @@
             echo "a = $a, b = $b, c = $c<br />";
             echo "Al modificar en el segundo bloque de asignaciones lo que ocurrió fué que le dimos un nuevo valor a la variable
             'a', posteriormente a la variable b le dimos la referencia de 'a', así que de igual manera le asignó el contenido de
-            'a'. Finalmente, 'c' se modificó debido a que en el primer bloque tiene referenciado a 'a'"
+            'a'. Finalmente, 'c' se modificó debido a que en el primer bloque tiene referenciado a 'a'";
             //Liberamos las variables
             unset($a, $b, $c);
         ?>
@@ -125,12 +125,31 @@
             $a = "PHP5";
             var_dump($a);
             echo "<br />";
+
             $z[] = &$a;
+            var_dump($z);
+            echo "<br />";
+
             $b = "5a version de PHP";
-            $c = $b*10;
-            $a .= $b;
+            var_dump($b);
+            echo "<br />";
+
+            $c = intval($b)*10;
+            var_dump($c);
+            echo "<br />";
+
+            $a .= strval($b);
+            var_dump($a);
+            echo "<br />";
+
+            $b *= intval($b);
             $b *= $c;
+            var_dump($b);
+            echo "<br />";
+
             $z[0] = "MySQL";
+            var_dump($z);
+            echo "<br />";
         
         ?>
     </div>
