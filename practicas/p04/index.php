@@ -40,7 +40,6 @@
     <p>$_myvar,  $_7var,  myvar,  $myvar,  $var7,  $_element1, $house*5</p>
     <div>
         <?php
-            //AQUI VA MI CÓDIGO PHP
             $_myvar;
             $_7var;
             //myvar;       // Inválida
@@ -52,13 +51,13 @@
             echo '<h4>Respuesta:</h4>';   
         
             echo '<ul>';
-            echo '<li>$_myvar es válida porque inicia con guión bajo.</li>';
-            echo '<li>$_7var es válida porque inicia con guión bajo.</li>';
-            echo '<li>myvar es inválida porque no tiene el signo de dolar ($).</li>';
-            echo '<li>$myvar es válida porque inicia con una letra.</li>';
-            echo '<li>$var7 es válida porque inicia con una letra.</li>';
-            echo '<li>$_element1 es válida porque inicia con guión bajo.</li>';
-            echo '<li>$house*5 es inválida porque el símbolo * no está permitido.</li>';
+            echo '<li>$_myvar es válida porque inicia con guión bajo ytiene carácteres permitidos.</li>';
+            echo '<li>$_7var no es válida porque inicia con un número después del guiób bajo, lo cual no está permitido.</li>';
+            echo '<li>myvar es inválida porque no tiene el signo de dólar.</li>';
+            echo '<li>$myvar es válida porque inicia con una letra y signo de dólar.</li>';
+            echo '<li>$var7 es válida porque inicia con una letra y después sigue el número.</li>';
+            echo '<li>$_element1 es válida porque inicia con guión bajo, seguido de letras y número.</li>';
+            echo '<li>$house*5 es inválida porque el símbolo * no es un carácter permitido.</li>';
             echo '</ul>';
             unset($_myvar, $myvar, $var7, $_element1);
         ?>
