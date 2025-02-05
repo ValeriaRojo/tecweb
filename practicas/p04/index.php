@@ -174,7 +174,7 @@
             echo "Valor de GLOBALS: z";
             var_dump($GLOBALS['z']);
             echo "<br />";
-
+            //Liberamos
             unset($a, $b, $c, $z);
         
         ?>
@@ -190,6 +190,12 @@
     </p>
     <div>
         <?php
+            $a = "7 personas";
+            $b = (integer) $a;
+            $a = "9E3";
+            $c = (double) $a;
+
+            echo "a= $a, b= $b, c= $c";
         
         ?>
     </div>
