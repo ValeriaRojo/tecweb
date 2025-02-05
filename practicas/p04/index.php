@@ -182,9 +182,9 @@
     <h2>Ejercicio 5</h2>
     <p>Dar el valor de las variables $a, $b, $c al final del siguiente script:</p>
     <p>
-        $a = “7 personas”;<br>
+        $a = "7 personas";<br>
         $b = (integer) $a;<br>
-        $a = “9E3”;<br>
+        $a = "9E3";<br>
         $c = (double) $a;<br>
     </p>
     <div>
