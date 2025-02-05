@@ -99,7 +99,7 @@
             echo "Al modificar en el segundo bloque de asignaciones lo que ocurrió fué que le dimos un nuevo valor a la variable
             'a', posteriormente a la variable b le dimos la referencia de 'a', así que de igual manera le asignó el contenido de
             'a'. Finalmente, 'c' se modificó debido a que en el primer bloque tiene referenciado a 'a'"
-            //Liberamos
+            //Liberamos las variables
             unset($a, $b, $c);
         ?>
     </div>
