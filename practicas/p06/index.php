@@ -115,7 +115,26 @@
         sexo “femenino”, cuya edad oscile entre los 18 y 35 años y mostrar un mensaje de
         bienvenida apropiado.
     </p>
+    <br>
+    <form method="post">
+        <label for="edad">Edad:</label>
+        <input type="number" name="edad" id="edad" required><br>
+            
+        <label for="sexo">Sexo:</label>
+        <select name="sexo" id="sexo" required>
+            <option value="femenino">Femenino</option>
+            <option value="masculino">Masculino</option>
+        </select><br>
+        <button type="submit">Enviar</button>
+    </form>
 
+    <?php
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $edad = $_POST['edad'];
+            $sexo = $_POST['sexo'];
+            echo '<h4>' . validarEdSex($edad, $sexo) . '</h4>';
+        }
+    ?>
 
     <h2>Ejercicio 6</h2>
     <p>

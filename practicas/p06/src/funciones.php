@@ -68,16 +68,17 @@
         }
         return $arreglo; #Retornamos el arreglo
     }
-    
-    function validarEdadSexo($edad, $sexo){ #Ejercicio 5
-        if ($sexo === 'femenino' && $edad >= 18 && $edad <= 35) {
-            return "Bienvenida, usted está en el rango de edad permitido.";
-        } else {
-            return "Lo sentimos, no cumple con los requisitos.";
+
+    function validarEdSex($edad, $sexo){ #Ejercicio 5
+        if($sexo==='femenino' && $edad>=18 && $edad<=35){
+            return "Bienvenida, usted está en el rango de edad permitido.=D";
+        }
+        else{
+            return "Lo lamentamos, no cumple con el rango de edad establecido.=c";
         }
     }
     
-    function obtenerParqueVehicular(){ #Ejercicio 6
+    function parqueVehicular(){ #Ejercicio 6
         return [
             "ABC1234" => [
                 "Auto" => ["marca" => "Toyota", "modelo" => 2020, "tipo" => "sedan"],
