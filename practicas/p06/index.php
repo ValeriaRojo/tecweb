@@ -61,6 +61,30 @@
         Utiliza un ciclo while para encontrar el primer número entero obtenido aleatoriamente,
         pero que además sea múltiplo de un número dado.
     </p>
+    <?php
+        if(isset($_GET['multiplo'])){
+            $multiploNum= $_GET['multiplo'];
+
+            if(is_numeric($multiploNum) && $multiploNum>0){ #Validación
+                $resultado= encontrarMultiplo($multiploNum);
+                echo "<p> El 1er múltiplo de $multiploNum encontrado con el ciclo while es: $resultado";
+            }
+            else{
+                echo '<p> ERROR: Ingrese un número válido para el múltiplo, por favor.';
+            }
+        }
+    ?>
+
+    <p><strong>Con do-while:</strong></p>
+    <?php
+        if(isset($_GET['multiplo'])){
+            if(is_numeric($multiploNum) && $multiploNum>0){
+                $resultado= encontrarMultiploDoWhile($multiploNum);
+                echo "<p> El 1er múltiplo de $multiploNum encontrado con el ciclo while es: $resultado";
+            }
+        }
+
+    ?>
 
     <h2>Ejercicio 4</h2>
     <p>

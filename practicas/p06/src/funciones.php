@@ -1,5 +1,5 @@
 <?php
-    function es_multiplo5y7($num){
+    function es_multiplo5y7($num){ #Ejercicio 1
         if ($num%5==0 && $num%7==0)
             {
                 echo '<h3>R= El número '.$num.' SÍ es múltiplo de 5 y 7.</h3>';
@@ -10,15 +10,15 @@
             }
     }
 
-    function esPar($numero){ #Función para verificar si es par (matriz)
+    function esPar($numero){ #Función para verificar si es par (matriz) Ejercicio 2
         return $numero%2===0;
     }
 
-    function esImpar($numero){ #Función para verificar si es impar (matriz)
+    function esImpar($numero){ #Función para verificar si es impar (matriz) Ejercicio 2
         return $numero%2!==0;
     }
 
-    function matrizSecuencia() {
+    function matrizSecuencia(){ #Ejercicio 2
         $matriz = []; #Creamos nuestra matriz
         $iteraciones = 0; #Número de iteraciones
         $numgen = 0;
@@ -33,7 +33,7 @@
             $numgen += 3;
             $iteraciones++;
     
-            if (esImpar($fila[0]) && esPar($fila[1]) && esImpar($fila[2])) {
+            if(esImpar($fila[0]) && esPar($fila[1]) && esImpar($fila[2])) {
                 $matriz[] = $fila;
                 break;
             }
@@ -46,22 +46,22 @@
         ];
     }
     
-    function encontrarMultiploConWhile($multiploDe) {
+    function encontrarMultiplo($multiploNum){ #Ejercicio 3
         $num = rand(1, 1000);
-        while ($num % $multiploDe !== 0) {
+        while ($num%$multiploNum!== 0) {
             $num = rand(1, 1000);
         }
         return $num;
     }
     
-    function encontrarMultiploConDoWhile($multiploDe) {
+    function encontrarMultiploDoWhile($multiploNum){ #Ejercicio 3
         do {
             $num = rand(1, 1000);
-        } while ($num % $multiploDe !== 0);
+        } while ($num % $multiploNum !== 0);
         return $num;
     }
     
-    function crearArregloAscii() {
+    function crearArregloAscii(){ #Ejercicio 4 
         $arreglo = [];
         for ($i = 97; $i <= 122; $i++) {
             $arreglo[$i] = chr($i);
@@ -69,7 +69,7 @@
         return $arreglo;
     }
     
-    function validarEdadSexo($edad, $sexo) {
+    function validarEdadSexo($edad, $sexo){ #Ejercicio 5
         if ($sexo === 'femenino' && $edad >= 18 && $edad <= 35) {
             return "Bienvenida, usted está en el rango de edad permitido.";
         } else {
@@ -77,7 +77,7 @@
         }
     }
     
-    function obtenerParqueVehicular() {
+    function obtenerParqueVehicular(){ #Ejercicio 6
         return [
             "ABC1234" => [
                 "Auto" => ["marca" => "Toyota", "modelo" => 2020, "tipo" => "sedan"],
