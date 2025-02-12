@@ -141,22 +141,28 @@
         Crea en código duro un arreglo asociativo que sirva para registrar el parque vehicular de
         una ciudad.
     </p>
-
-
-    <h2>Ejemplo de POST</h2>
-    <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">
-        Name: <input type="text" name="name"><br>
-        E-mail: <input type="text" name="email"><br>
-        <input type="submit">
+    <h4><center>---Consulta de Vehículos---</center> </h4>
+    <form method="post">
+        <label for="matricula">Matrícula:</label>
+        <input type="text" name="matricula" id="matricula"><br>
+        <button type="submit">Buscar vehículo</button>
     </form>
-    <br>
+
     <?php
-        if(isset($_POST["name"]) && isset($_POST["email"]))
-        {
-            echo $_POST["name"];
-            echo '<br>';
-            echo $_POST["email"];
+        $parqueVehicular = parqueVehicular();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['matricula'])) {
+            $matricula = $_POST['matricula'];
+            if (isset($parqueVehicular[$matricula])) {
+                echo '<h3>Datos del vehículo:</h3>';
+                echo '<pre>' . print_r($parqueVehicular[$matricula], true) . '</pre>';
+            } else {
+                echo '<p>No se encontraron vehículos con esa matrícula.</p>';
+            }
         }
+        echo '<p>Todos los vehículos: </p>';
+        echo '<pre>'.print_r($parqueVehicular, true).'</pre>';
     ?>
+    
 </body>
 </html>
