@@ -61,12 +61,12 @@
         return $num;
     }
     
-    function crearArregloAscii(){ #Ejercicio 4 
-        $arreglo = [];
-        for ($i = 97; $i <= 122; $i++) {
-            $arreglo[$i] = chr($i);
+    function arregloAscii(){ #Ejercicio 4 
+        $arreglo=[];
+        for($i = 97; $i<=122; $i++){ #Usamos un for para realizar las iteraciones
+            $arreglo[$i] = chr($i); #Utilizamos la funiín chr(n) 
         }
-        return $arreglo;
+        return $arreglo; #Retornamos el arreglo
     }
     
     function validarEdadSexo($edad, $sexo){ #Ejercicio 5

@@ -92,6 +92,22 @@
         a la ‘z’. Usa la función chr(n) que devuelve el caracter cuyo código ASCII es n para poner
         el valor en cada índice.
     </p>
+    <?php
+        $arregloAscii= arregloAscii();
+        echo '<table border="5">';
+        echo '  <tr>
+                    <th>
+                        Índice
+                    </th>
+                <th>
+                    Valor
+                </th>
+                </tr>';
+        foreach($arregloAscii as $indice => $valor) {
+            echo "<tr><td>$indice</td><td>$valor</td></tr>";
+        }
+        echo '</table>';
+    ?>
 
     <h2>Ejercicio 5</h2>
     <p>
