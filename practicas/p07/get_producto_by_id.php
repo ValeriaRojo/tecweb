@@ -32,9 +32,14 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Producto</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<style>
+			body{
+				font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+			}
+		</style>
 	</head>
 	<body>
-		<h3>PRODUCTO</h3>
+		<h3><strong>PRODUCTO</strong></h3>
 
 		<br/>
 		
