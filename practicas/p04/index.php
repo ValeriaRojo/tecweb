@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Práctica 4</title>
-    <style>
+    <style type="text/css">
         body{
             background-color:rgb(231, 192, 216);
             padding: 30px;
