@@ -68,7 +68,7 @@
         <ul>
             <li>$a = “ManejadorSQL”;<br /></li>
             <li>$b = 'MySQL’;<br /></li>
-            <li>$c = &$a;<br /><br /></li>
+            <li>$c = &amp;$a;<br /><br /></li> 
         </ul>
     <p>
         a. Ahora muestra el contenido de cada variable<br /><br />
@@ -76,7 +76,7 @@
     </p>
         <ul>
             <li>$a = “PHP server”;<br /></li>
-            <li>$b = &$a;<br /><br /></li>
+            <li>$b = &amp;$a;<br /><br /></li>
         </ul>
     <p>
         c. Vuelve a mostrar el contenido de cada uno<br /><br />
@@ -111,12 +111,12 @@
         arreglo):
     </p>
     <p>
-        $a = “PHP5”;<br>
-        $z[] = &$a;<br>
-        $b = “5a version de PHP”;<br>
-        $c = $b*10;<br>
-        $a .= $b;<br>
-        $b *= $c;<br>
+        $a = “PHP5”;<br />
+        $z[] = &amp;$a;<br />
+        $b = “5a version de PHP”;<br />
+        $c = $b*10;<br />
+        $a .= $b;<br />
+        $b *= $c;<br />
         $z[0] = “MySQL”;
     </p>
     <div>
@@ -183,10 +183,10 @@
     <h2>Ejercicio 5</h2>
     <p>Dar el valor de las variables $a, $b, $c al final del siguiente script:</p>
     <p>
-        $a = "7 personas";<br>
-        $b = (integer) $a;<br>
-        $a = "9E3";<br>
-        $c = (double) $a;<br>
+        $a = "7 personas";<br />
+        $b = (integer) $a;<br />
+        $a = "9E3";<br />
+        $c = (double) $a;<br />
     </p>
     <div>
         <?php
@@ -203,14 +203,14 @@
     <h2>Ejercicio 6</h2>
     <p>
         Dar y comprobar el valor booleano de las variables $a, $b, $c, $d, $e y $f y muéstralas
-        usando la función var_dump(datos).<br><br>
+        usando la función var_dump(datos).<br /><br />
         Después investiga una función de PHP que permita transformar el valor booleano de $c y $e
-        en uno que se pueda mostrar con un echo:<br>
-        $a = “0”;<br>
-        $b = “TRUE”;<br>
-        $c = FALSE;<br>
-        $d = ($a OR $b);<br>
-        $e = ($a AND $c);<br>
+        en uno que se pueda mostrar con un echo:<br />
+        $a = “0”;<br />
+        $b = “TRUE”;<br />
+        $c = FALSE;<br />
+        $d = ($a OR $b);<br />
+        $e = ($a AND $c);<br />
         $f = ($a XOR $b);
     </p>
     <div>
@@ -244,9 +244,9 @@
 
     <h2>Ejercicio 7</h2>
     <p>
-        Usando la variable predefinida $_SERVER, determina lo siguiente:<br><br>
-        a. La versión de Apache y PHP.<br>
-        b. El nombre del sistema operativo (servidor).<br>
+        Usando la variable predefinida $_SERVER, determina lo siguiente:<br /><br />
+        a. La versión de Apache y PHP.<br />
+        b. El nombre del sistema operativo (servidor).<br />
         c. El idioma del navegador (cliente).
     </p>
     <div>
