@@ -126,7 +126,7 @@
             var_dump($a);
             echo "<br />";
 
-            $z[] = &$a;
+            $z[] = $a;
             var_dump($z);
             echo "<br />";
 
@@ -150,6 +150,8 @@
             $z[0] = "MySQL";
             var_dump($z);
             echo "<br />";
+
+            unset($a, $b, $c, $z);
         ?>
     </div>
     <h2>Ejercicio 4</h2>
