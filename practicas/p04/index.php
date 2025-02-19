@@ -264,5 +264,11 @@
     
         ?>
     </div>
+    <div>
+        <p>
+            <a href="https://validator.w3.org/markup/check?uri=referer"><img
+            src="https://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" width="88" /></a>
+        </p>
+    </div>
 </body>
 </html>
