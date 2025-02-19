@@ -65,20 +65,21 @@
 
     <h2>Ejercicio 2</h2>
     <p>Proporcionar los valores de $a, $b, $c como sigue:</p>
+        <ul>
+            <li>$a = “ManejadorSQL”;<br /></li>
+            <li>$b = 'MySQL’;<br /></li>
+            <li>$c = &$a;<br /><br /></li>
+        </ul>
     <p>
+        a. Ahora muestra el contenido de cada variable<br /><br />
+        b. Agrega al código actual las siguientes asignaciones:<br /><br />
+    </p>
         <ul>
-            <li>$a = “ManejadorSQL”;<br></li>
-            <li>$b = 'MySQL’;<br></li>
-            <li>$c = &$a;<br><br></li>
+            <li>$a = “PHP server”;<br /></li>
+            <li>$b = &$a;<br /><br /></li>
         </ul>
-            
-        a. Ahora muestra el contenido de cada variable<br><br>
-        b. Agrega al código actual las siguientes asignaciones:<br><br>
-        <ul>
-            <li>$a = “PHP server”;<br></li>
-            <li>$b = &$a;<br><br></li>
-        </ul>
-        c. Vuelve a mostrar el contenido de cada uno<br><br>
+    <p>
+        c. Vuelve a mostrar el contenido de cada uno<br /><br />
         d. Describe en y muestra en la página obtenida qué ocurrió en el segundo bloque de
         asignaciones
     </p>
