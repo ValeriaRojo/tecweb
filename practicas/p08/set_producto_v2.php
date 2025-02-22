@@ -39,7 +39,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') /**Comprobamos que el método que se ut
 	}
 
 	/**Se insertan los datos en la BD*/
-	$sql = "INSERT INTO productos VALUES (null, '{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}', 0)";
+	//$sql = "INSERT INTO productos VALUES (null, '{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}', 0)";
+	$sql = "INSERT INTO productos (nombre, marca, modelo, precio, detalles, unidades, imagen)
+			VALUES ('{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}')";
 	if ( $link->query($sql) ) 
 	{
 		echo 'Resumen de productos insertados:<br/>';
