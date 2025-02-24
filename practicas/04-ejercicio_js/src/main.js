@@ -220,6 +220,14 @@ function numeros10(){
 }
 
 //Función ejemplo 14:
+function mostrarMensaje(){
+    document.write("Cuidado<br>");
+    document.write("Ingresa tu documento correctamente<br>");
+    document.write("Cuidado<br>");
+    document.write("Ingresa tu documento correctamente<br>");
+    document.write("Cuidado<br>");
+    document.write("Ingresa tu documento correctamente<br>");
+}
 
 //Función ejemplo 15:
 
