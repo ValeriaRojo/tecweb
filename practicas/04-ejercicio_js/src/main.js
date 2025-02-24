@@ -230,6 +230,13 @@ function mostrarMensaje(){
 }
 
 //Función ejemplo 15:
+function mostrarMensajeFu() {
+        document.write("Cuidado<br>");
+        document.write("Ingresa tu documento correctamente<br>");
+    }
+    mostrarMensajeFu();
+    mostrarMensajeFu();
+    mostrarMensajeFu();
 
 //Función ejemplo 16:
 
