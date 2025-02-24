@@ -166,6 +166,15 @@ function colorFondo(){
 }
 
 //Función ejemplo 10:
+function numeros100(){
+    var x;
+    x=1;
+    while (x<=100) {
+        document.write(x);
+        document.write('<br>');
+        x=x+1;
+    }
+}
 
 //Función ejemplo 11:
 
