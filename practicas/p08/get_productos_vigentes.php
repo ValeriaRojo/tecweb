@@ -49,14 +49,17 @@
 				font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 			}
             img{
-                width: 50%;
+                width: 30%;
                 height: auto;
             }
-
+            h3{
+                padding-top: 20px;
+                font-weight: bold;
+            }
         </style>
     </head>
     <body>
-        <h3><strong>PRODUCTO</strong></h3>
+        <h3>PRODUCTO</h3>
         <br/>
 
         <?php if( isset($row) ) : ?>
