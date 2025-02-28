@@ -57,7 +57,17 @@
              <fieldset>
                 <ul>
                   <li class="lista"><label for="form-name" class="contenedor_lista">Nombre:</label> <input type="text" name="name" id="form-name" placeholder="No mas de 100 caracteres"></li>
-                  <li class="lista"><label for="form-marca">Marca:</label> <input type="text" name="marca" id="form-marca" placeholder="No mas de 25 caracteres"></li>
+                  <li class="lista">
+                    <label for="form-marca">Marca:</label> 
+                    <select name="marca" id="form-marca">
+                      <option value="">Selecciona una marca</option>
+                      <option value="Korea-Sports">Korea Sports</option>
+                      <option value="Adidas">Adidas</option>
+                      <option value="Asiana">Asiana</option>
+                      <option value="Nexus">Nexus</option>
+                      <option value="Mooto">Mooto</option>
+                      <option value="Daedo">Daedo</option>
+                    </select></li>
                   <li class="lista"><label for="form-modelo">Modelo:</label> <input type="text" name="modelo" id="form-modelo" placeholder="No mas de 25 caracteres"></li>
                   <li class="lista"><label for="form-precio">Precio:</label> <input type="number" name="precio" id="form-precio"></li>
                   <li class="lista"><label for="form-detalles">Detalles:</label><br> <textarea name="detalles" id="form-detalles" rows="4" cols="60" placeholder="No mas de 250 caracteres"></textarea></li>
@@ -71,6 +81,6 @@
               </div>
              <input type="reset">
     </form>
-
+    <script src="js/validaciones.js"></script>
 </body>
 </html>
