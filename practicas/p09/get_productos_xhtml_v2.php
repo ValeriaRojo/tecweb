@@ -1,8 +1,7 @@
-<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html PUBLIC   "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">
-<?php
-    //header("Content-Type: application/json; charset=utf-8"); 
+<?php 
+    $data = array();
 
 	if(isset($_GET['tope']))
     {
@@ -19,31 +18,79 @@
 		if ($link->connect_errno) 
 		{
 			die('Falló la conexión: '.$link->connect_error.'<br/>');
-			//exit();
 		}
 
-		if ( $result = $link->query("SELECT * FROM productos WHERE unidades <= $tope") ) 
-		{
-			$row = $result->fetch_all(MYSQLI_ASSOC);
-			$result->free();
-		}
+		if ($result = $link->query("SELECT * FROM productos WHERE unidades <= $tope")) {
+            $row = $result->fetch_all(MYSQLI_ASSOC);
+            foreach($row as $num => $registro) {
+                foreach($registro as $key => $value) {
+                    $data[$num][$key] = ($value);
+                }
+            }
+            $result->free();
+        }
 
 		$link->close();
-        //echo json_encode($data, JSON_PRETTY_PRINT);
 	}
-	?>
+?>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Producto</title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<style>
 			body{
 				font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 			}
+            img{
+                width: 30%;
+                height: auto;
+            }
         </style>
+        
+        <script>
+            function show(event) {
+                // se obtiene el id de la fila donde está el botón presionado
+                var rowId = event.target.parentNode.parentNode.id;
+
+                // se obtienen los datos de la fila en forma de arreglo
+                var data = document.getElementById(rowId).querySelectorAll(".row-data");
+
+                var id = data[0].innerHTML;
+                var nombre = data[1].innerHTML;
+                var marca = data[2].innerHTML;
+                var modelo = data[3].innerHTML;
+                var precio = data[4].innerHTML;
+                var unidades = data[5].innerHTML;
+                var detalles = data[6].innerHTML;
+
+                alert("ID: " + id + "\nNombre: " + nombre + "\nMarca: " + marca + "\nModelo: " + modelo + 
+                "\nPrecio: " + precio + "\nUnidades: " + unidades + "\nDetalles: " + detalles);
+
+                send2form(id, nombre, marca, modelo, precio, unidades, detalles);
+            }
+        </script>
+
+        <script>
+            function send2form(id, nombre, marca, modelo, precio, unidades, detalles){
+                var urlForm = "formulario_productos_v2.php";
+                var propId = "ID="+id;
+                var propNombre = "nombre="+nombre;
+                var propMarca = "marca="+marca;
+                var propModelo = "modelo="+modelo;
+                var propPrecio = "precio="+precio;
+                var propUnidades = "unidades="+unidades;
+                var propDetalles = "detalles="+detalles;
+                window.open( urlForm + "?" + "&" + propId +"&" + propNombre + "&" + propMarca + "&" + propModelo + 
+                "&" + propPrecio + "&" + propUnidades + "&" + propDetalles);
+
+                //window.location.href = urlForm + "?" + propId + "&" + propName + "&" + propMarca + "&" + propModelo + 
+                //"&" + propPrecio + "&" + propUnidades + "&" + propDetalles;
+            }
+        </script>
     </head>
     <body>
-        <h3><strong>PRODUCTO</strong></h3>
+        <h3><strong>PRODUCTOS</strong></h3>
         <br/>
 
         <?php if( isset($row) ) : ?>
@@ -59,19 +106,21 @@
                     <th scope="col">Unidades</th>
                     <th scope="col">Detalles</th>
                     <th scope="col">Imagen</th>
+                    <th scope="col">Editar producto</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach($row as $producto) : ?>
-                    <tr>
-                        <th scope="row"><?= $producto['id'] ?></th>
-                        <td><?= $producto['nombre'] ?></td>
-                        <td><?= $producto['marca'] ?></td>
-                        <td><?= $producto['modelo'] ?></td>
-                        <td><?= $producto['precio'] ?></td>
-                        <td><?= $producto['unidades'] ?></td>
-                        <td><?= $producto['detalles'] ?></td>
-                        <td><img src=<?= $producto['imagen']?> ></td>
+                    <tr id="<?= $producto['id'] ?>" class="product-row">
+                        <th scope="row" class="row-data"><?= $producto['id'] ?></th>
+                        <td class="row-data"><?= $producto['nombre'] ?></td>
+                        <td class="row-data"><?= $producto['marca'] ?></td>
+                        <td class="row-data"><?= $producto['modelo'] ?></td>
+                        <td class="row-data"><?= $producto['precio'] ?></td>
+                        <td class="row-data"><?= $producto['unidades'] ?></td>
+                        <td class="row-data"><?= $producto['detalles'] ?></td>
+                        <td class="row-data"><img src=<?= $producto['imagen']?> ></td>
+                        <td class="row-data"><input type="button" value="Editar producto" onclick="show(event)" /></td>
                     </tr>
                     <?php endforeach ?>
                 </tbody>

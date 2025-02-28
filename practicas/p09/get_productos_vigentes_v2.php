@@ -26,7 +26,7 @@
 
 		if ( $result = $link->query("SELECT * FROM productos WHERE unidades <= $tope AND eliminado = 0") ) 
 		{
-			$row = $result->fetch_all(MYSQLI_ASSOC);
+			$row = $result->fetch_all(MYSQLI_ASSOC, 1);
             foreach($row as $num => $registro){
                 foreach($registro as $key => $value){
                     $data[$num][$key] = ($value);
