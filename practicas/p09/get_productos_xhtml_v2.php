@@ -46,12 +46,13 @@
                 width: 30%;
                 height: auto;
             }
+
         </style>
         
         <script>
-            function show(event) {
+            function show(rowId) {
                 // se obtiene el id de la fila donde está el botón presionado
-                var rowId = event.target.parentNode.parentNode.id;
+                //var rowId = event.target.parentNode.parentNode.id;
 
                 // se obtienen los datos de la fila en forma de arreglo
                 var data = document.getElementById(rowId).querySelectorAll(".row-data");
@@ -73,19 +74,55 @@
 
         <script>
             function send2form(id, nombre, marca, modelo, precio, unidades, detalles){
-                var urlForm = "formulario_productos_v2.php";
-                var propId = "ID="+id;
-                var propNombre = "nombre="+nombre;
-                var propMarca = "marca="+marca;
-                var propModelo = "modelo="+modelo;
-                var propPrecio = "precio="+precio;
-                var propUnidades = "unidades="+unidades;
-                var propDetalles = "detalles="+detalles;
-                window.open( urlForm + "?" + "&" + propId +"&" + propNombre + "&" + propMarca + "&" + propModelo + 
-                "&" + propPrecio + "&" + propUnidades + "&" + propDetalles);
+                var form = document.createElement("form");
 
-                //window.location.href = urlForm + "?" + propId + "&" + propName + "&" + propMarca + "&" + propModelo + 
-                //"&" + propPrecio + "&" + propUnidades + "&" + propDetalles;
+                var idIn = document.createElement("input");
+                idIn.type = 'hidden';
+                idIn.name = 'id';
+                idIn.value = id;
+                form.appendChild(idIn);
+
+                var nombreIn = document.createElement("input");
+                nombreIn.type = 'hidden';
+                nombreIn.name = 'nombre';
+                nombreIn.value = nombre;
+                form.appendChild(nombreIn);
+
+                var marcaIn = document.createElement("input");
+                marcaIn.type = 'hidden';
+                marcaIn.name = 'marca';
+                marcaIn.value = marca;
+                form.appendChild(marcaIn);
+
+                var modeloIn = document.createElement("input");
+                modeloIn.type = 'hidden';
+                modeloIn.name = 'modelo';
+                modeloIn.value = modelo;
+                form.appendChild(modeloIn);
+
+                var precioIn = document.createElement("input");
+                precioIn.type = 'hidden';
+                precioIn.name = 'precio';
+                precioIn.value = precio;
+                form.appendChild(precioIn);
+
+                var unidadesIn = document.createElement("input");
+                unidadesIn.type = 'hidden';
+                unidadesIn.name = 'unidades';
+                unidadesIn.value = unidades;
+                form.appendChild(unidadesIn);
+
+                var detallesIn = document.createElement("input");
+                detallesIn.type = 'hidden';
+                detallesIn.name = 'detalles';
+                detallesIn.value = detalles;
+                form.appendChild(detallesIn);
+
+                form.method = 'POST';
+                form.action = 'formulario_productos_v2.php';
+
+                document.body.appendChild(form);
+                form.submit();
             }
         </script>
     </head>
@@ -110,17 +147,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($row as $producto) : ?>
-                    <tr id="<?= $producto['id'] ?>" class="product-row">
-                        <th scope="row" class="row-data"><?= $producto['id'] ?></th>
-                        <td class="row-data"><?= $producto['nombre'] ?></td>
-                        <td class="row-data"><?= $producto['marca'] ?></td>
-                        <td class="row-data"><?= $producto['modelo'] ?></td>
-                        <td class="row-data"><?= $producto['precio'] ?></td>
-                        <td class="row-data"><?= $producto['unidades'] ?></td>
-                        <td class="row-data"><?= $producto['detalles'] ?></td>
-                        <td class="row-data"><img src=<?= $producto['imagen']?> ></td>
-                        <td class="row-data"><input type="button" value="Editar producto" onclick="show(event)" /></td>
+                    <?php foreach($row as $value) : ?>
+                    <tr id="<?= $value['id'] ?>" class="product-row">
+                        <th scope="row" class="row-data"><?= $value['id'] ?></th>
+                        <td class="row-data"><?= $value['nombre'] ?></td>
+                        <td class="row-data"><?= $value['marca'] ?></td>
+                        <td class="row-data"><?= $value['modelo'] ?></td>
+                        <td class="row-data"><?= $value['precio'] ?></td>
+                        <td class="row-data"><?= $value['unidades'] ?></td>
+                        <td class="row-data"><?= $value['detalles'] ?></td>
+                        <td class="row-data"><img src=<?= $value['img']?> ></td>
+                        <td class="row-data"><input type="button" value="Editar producto" onclick="show('<?= $value['id'] ?>')" /></td>
                     </tr>
                     <?php endforeach ?>
                 </tbody>

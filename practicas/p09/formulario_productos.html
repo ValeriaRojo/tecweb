@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Productos</title>
+    <style type="text/css">
+      body{
+        background-color: lightgray;
+        padding: 25px;
+        font-family:'Times New Roman', Times, serif
+      }
+        ol, ul { 
+          list-style-type: none;
+          align-items: center;
+          align-content: center;
+        }
+        h1{
+          text-align: center;
+          color: rgb(23, 4, 41);
+          font-size: 40px;
+        }
+        fieldset{
+          background-color: aliceblue;
+        }
+        .contenedor_boton{
+          text-align: center;
+        }
+        .boton{
+          text-align: center;
+          background-color: white;
+          padding: 10px;
+          font-size: 15px;
+          font-style: italic;
+          cursor: pointer;
+          transition: background-color 0.5s, transform 0.3s;
+        }
+        .boton:hover{
+          background-color: rgb(75, 221, 75);
+          box-shadow: 0 5px 16px rgba(0, 0, 0, 0,5);
+          color: white;
+          font-weight: bold;
+          transform: scale(1.1);
+
+        }
+        .lista{
+          font-weight: bold;
+          padding: 5px;
+        }
+      </style>
+</head>
+<body>
+    <h1>Registro de Productos</h1>
+    <p>Ingresa los productos que desees insertar en la base de datos</p>
+    <form id="formularioProductos" action="http://localhost/tecweb/practicas/p08/set_producto_v2.php" method="POST">
+        <h3>Datos del producto:</h3>
+             <fieldset>
+                <ul>
+                  <li class="lista"><label for="form-name" class="contenedor_lista">Nombre:</label> <input type="text" name="name" id="form-name" placeholder="No mas de 100 caracteres"></li>
+                  <li class="lista">
+                    <label for="form-marca">Marca:</label> 
+                    <select name="marca" id="form-marca">
+                      <option value="">Selecciona una marca</option>
+                      <option value="Korea-Sports">Korea Sports</option>
+                      <option value="Adidas">Adidas</option>
+                      <option value="Asiana">Asiana</option>
+                      <option value="Nexus">Nexus</option>
+                      <option value="Mooto">Mooto</option>
+                      <option value="Daedo">Daedo</option>
+                    </select></li>
+                  <li class="lista"><label for="form-modelo">Modelo:</label> <input type="text" name="modelo" id="form-modelo" placeholder="No mas de 25 caracteres"></li>
+                  <li class="lista"><label for="form-precio">Precio:</label> <input type="number" name="precio" id="form-precio"></li>
+                  <li class="lista"><label for="form-detalles">Detalles:</label><br> <textarea name="detalles" id="form-detalles" rows="4" cols="60" placeholder="No mas de 250 caracteres"></textarea></li>
+                  <li class="lista"><label for="form-unidades">Unidades:</label> <input type="number" name="unidades" id="form-unidades"></li>
+                  <li class="lista"><label for="form-img">Imagen:</label> <input type="text" name="img" id="form-img"></li>
+                </ul>
+             </fieldset>
+
+              <div class="contenedor_boton">
+                <button type="submit" class="boton">Registrar producto</button>
+              </div>
+             <input type="reset">
+    </form>
+    <script src="js/validaciones.js"></script>
+</body>
+</html>

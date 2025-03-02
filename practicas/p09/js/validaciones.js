@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function(){
     formulario.addEventListener("submit", function(event){
         event.preventDefault();
 
-        let nombre = document.getElementById("form-name").value.trim();
+        let nombre = document.getElementById("form-nombre").value.trim();
         let marca = document.getElementById("form-marca").value.trim();
         let modelo = document.getElementById("form-modelo").value.trim();
         let precio = document.getElementById("form-precio").value.trim();
