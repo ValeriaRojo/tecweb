@@ -56,6 +56,7 @@
         echo "<p>Error: No se proporcionó un ID de producto válido.</p>";
         exit;
     }
+    //var_dump($_POST); (Analizar que datos está recuperando)
   ?>
     <h1>Actualiza los datos de tu Producto</h1>
     <p>Ingresa las características que desees actualizar</p>
@@ -75,16 +76,21 @@
                     <label for="form-marca">Marca:</label> 
                     <select name="marca" id="form-marca">
                       <option value="">Selecciona una marca</option>
-                      <option value="Korea Sports" <?= (isset($_POST['marca']) && $_POST['marca'] == 'Korea Sports') 
-                      || (isset($_GET['marca']) && $_GET['marca'] == 'Korea Sports') ? 'selected' : '' ?>>Korea Sports</option>
+                      <option value="Korea Sport" <?= (isset($_POST['marca']) && $_POST['marca'] == 'Korea Sport') 
+                      || (isset($_GET['marca']) && $_GET['marca'] == 'Korea Sport') ? 'selected' : '' ?>>Korea Sports</option>
+
                       <option value="Adidas" <?= (isset($_POST['marca']) && $_POST['marca'] == 'Adidas') 
                       || (isset($_GET['marca']) && $_GET['marca'] == 'Adidas') ? 'selected' : '' ?>>Adidas</option>
+
                       <option value="Asiana" <?= (isset($_POST['marca']) && $_POST['marca'] == 'Asiana') 
                       || (isset($_GET['marca']) && $_GET['marca'] == 'Asiana') ? 'selected' : '' ?>>Asiana</option>
+
                       <option value="Nexus" <?= (isset($_POST['marca']) && $_POST['marca'] == 'Nexus') 
                       || (isset($_GET['marca']) && $_GET['marca'] == 'Nexus') ? 'selected' : '' ?>>Nexus</option>
+
                       <option value="Mooto" <?= (isset($_POST['marca']) && $_POST['marca'] == 'Mooto') 
                       || (isset($_GET['marca']) && $_GET['marca'] == 'Mooto') ? 'selected' : '' ?>>Mooto</option>
+
                       <option value="Daedo" <?= (isset($_POST['marca']) && $_POST['marca'] == 'Daedo') 
                       || (isset($_GET['marca']) && $_GET['marca'] == 'Daedo') ? 'selected' : '' ?>>Daedo</option>
                     </select></li>
@@ -102,7 +108,7 @@
                   value="<?= !empty($_POST['unidades']) ? $_POST['unidades'] : (isset($_GET['unidades']) ? $_GET['unidades'] : '') ?>"></li>
 
                   <li class="lista"><label for="form-img">Imagen:</label> <input type="text" name="img" id="form-img"
-                  value="<?= !empty($_POST['img']) ? $_POST['img'] : (isset($_GET['img']) ? $_GET['img'] : 'imagen.png') ?>"></li>
+                  value="<?= !empty($_POST['imagen']) ? $_POST['imagen'] : (isset($_GET['imagen']) ? $_GET['imagen'] : 'imagen.png') ?>"></li>
                 </ul>
              </fieldset>
 

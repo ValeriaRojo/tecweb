@@ -16,6 +16,8 @@
         $detalles = $_POST['detalles'];
         $img = $_POST['img']; 
 
+        //var_dump($_POST);
+
         $sql = "UPDATE productos SET 
                     nombre = '$nombre', 
                     marca = '$marca', 
@@ -23,7 +25,7 @@
                     precio = '$precio', 
                     unidades = '$unidades', 
                     detalles = '$detalles', 
-                    img = '$img' 
+                    imagen = '$img' 
                 WHERE id = $id";
 
         if (mysqli_query($link, $sql)) {
@@ -40,7 +42,7 @@
 ?>
 
 <p>
-    <a href="get_producto_xhtml_v2.php">Ver productos con unidades ≤ tope</a>
+    <a href="get_producto_xhtml_v2.php">Ver productos (tope)</a>
 </p>
 <p>
     <a href="get_productos_vigentes_v2.php">Ver productos vigentes</a>

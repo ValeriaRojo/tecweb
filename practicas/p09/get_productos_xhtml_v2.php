@@ -27,6 +27,7 @@
                     $data[$num][$key] = ($value);
                 }
             }
+            //var_dump($data);
             $result->free();
         }
 
@@ -64,16 +65,17 @@
                 var precio = data[4].innerHTML;
                 var unidades = data[5].innerHTML;
                 var detalles = data[6].innerHTML;
+                var img = data[7].firstChild.getAttribute('src');
 
                 alert("ID: " + id + "\nNombre: " + nombre + "\nMarca: " + marca + "\nModelo: " + modelo + 
-                "\nPrecio: " + precio + "\nUnidades: " + unidades + "\nDetalles: " + detalles);
+                "\nPrecio: " + precio + "\nUnidades: " + unidades + "\nDetalles: " + detalles + "\nImagen: " + img);
 
-                send2form(id, nombre, marca, modelo, precio, unidades, detalles);
+                send2form(id, nombre, marca, modelo, precio, unidades, detalles, img);
             }
         </script>
 
         <script>
-            function send2form(id, nombre, marca, modelo, precio, unidades, detalles){
+            function send2form(id, nombre, marca, modelo, precio, unidades, detalles, imagen){
                 var form = document.createElement("form");
 
                 var idIn = document.createElement("input");
@@ -118,6 +120,12 @@
                 detallesIn.value = detalles;
                 form.appendChild(detallesIn);
 
+                var imagenIn = document.createElement("input");
+                imagenIn.type = 'hidden';
+                imagenIn.name = 'imagen';
+                imagenIn.value = imagen;
+                form.appendChild(imagenIn);
+
                 form.method = 'POST';
                 form.action = 'formulario_productos_v2.php';
 
@@ -156,7 +164,7 @@
                         <td class="row-data"><?= $value['precio'] ?></td>
                         <td class="row-data"><?= $value['unidades'] ?></td>
                         <td class="row-data"><?= $value['detalles'] ?></td>
-                        <td class="row-data"><img src=<?= $value['img']?> ></td>
+                        <td class="row-data"><img src="<?= $value['imagen']?>" ></td>
                         <td class="row-data"><input type="button" value="Editar producto" onclick="show('<?= $value['id'] ?>')" /></td>
                     </tr>
                     <?php endforeach ?>
