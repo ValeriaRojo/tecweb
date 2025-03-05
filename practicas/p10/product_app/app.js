@@ -64,6 +64,10 @@ function buscarID(e) {
 function agregarProducto(e) {
     e.preventDefault();
 
+    if (!validarFormulario()) {  // Verifica si la validación falla
+        return;  // Detiene la ejecución si el formulario no es válido
+    }
+
     // SE OBTIENE DESDE EL FORMULARIO EL JSON A ENVIAR
     var productoJsonString = document.getElementById('description').value;
     // SE CONVIERTE EL JSON DE STRING A OBJETO
@@ -81,6 +85,7 @@ function agregarProducto(e) {
         // SE VERIFICA SI LA RESPUESTA ESTÁ LISTA Y FUE SATISFACTORIA
         if (client.readyState == 4 && client.status == 200) {
             console.log(client.responseText);
+             window.alert(client.responseText);
         }
     };
     client.send(productoJsonString);
@@ -119,4 +124,103 @@ function init() {
      */
     var JsonString = JSON.stringify(baseJSON,null,2);
     document.getElementById("description").value = JsonString;
+}
+
+function buscarProducto(e) {
+    e.preventDefault();
+
+    // SE OBTIENE EL TÉRMINO DE BÚSQUEDA
+    var search = document.getElementById('search').value;
+
+    // SE CREA EL OBJETO DE CONEXIÓN ASÍNCRONA AL SERVIDOR
+    var client = getXMLHttpRequest();
+    client.open('POST', './backend/read.php', true);
+    client.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    client.onreadystatechange = function () {
+        // SE VERIFICA SI LA RESPUESTA ESTÁ LISTA Y FUE SATISFACTORIA
+        if (client.readyState == 4 && client.status == 200) {
+            console.log('[CLIENTE]\n' + client.responseText);
+            
+            // SE OBTIENE EL ARRAY DE PRODUCTOS A PARTIR DE UN STRING JSON
+            let productos = JSON.parse(client.responseText);
+
+            // SE VERIFICA SI EL ARRAY TIENE PRODUCTOS
+            if (productos.length > 0) {
+                let template = '';
+
+                // SE ITERA SOBRE CADA PRODUCTO ENCONTRADO
+                productos.forEach(producto => {
+                    let descripcion = `
+                        <li>precio: ${producto.precio}</li>
+                        <li>unidades: ${producto.unidades}</li>
+                        <li>modelo: ${producto.modelo}</li>
+                        <li>marca: ${producto.marca}</li>
+                        <li>detalles: ${producto.detalles}</li>
+                    `;
+
+                    template += `
+                        <tr>
+                            <td>${producto.id}</td>
+                            <td>${producto.nombre}</td>
+                            <td><ul>${descripcion}</ul></td>
+                        </tr>
+                    `;
+                });
+
+                // SE INSERTA LA PLANTILLA EN EL ELEMENTO CON ID "productos"
+                document.getElementById("productos").innerHTML = template;
+            } else {
+                document.getElementById("productos").innerHTML = '<tr><td colspan="3">No se encontraron productos</td></tr>';
+            }
+        }
+    };
+    client.send("search=" + encodeURIComponent(search));
+}
+
+function validarFormulario() {
+
+    var nombre = document.getElementById("form-nombre").value;
+    var marca = document.getElementById("form-marca").value;
+    var modelo = document.getElementById("form-modelo").value;
+    var precio = parseFloat(document.getElementById("form-precio").value);
+    var detalles = document.getElementById("form-detalle").value;
+    var unidades = parseInt(document.getElementById("form-unidades").value);
+    var imagen = document.getElementById("form-img").value;
+
+    if (nombre === "" || nombre.length > 100) {
+        alert("El nombre es obligatorio y debe tener maximo 100 caracteres.");
+        return false;
+    }
+
+    if (marca === "") {
+        alert("Seleccione la marca en la lista de opciones.");
+        return false;
+    }
+
+    var modeloRegex = /^[a-zA-Z0-9]*$/;
+    if (modelo === "" || modelo.length > 25 || !modeloRegex.test(modelo)) {
+        alert("El modelo es requerido, alfanumérico y debe tener maximo 25 caracteres .");
+        return false;
+    }
+
+    if (isNaN(precio) || precio <= 99.99) {
+        alert("El precio es obligatorio y debe ser mayor a 99.99.");
+        return false;
+    }
+
+    if (detalles.length > 250) {
+        alert("Los detalles son  opcionales pero debe tener maximo 250 caracteres.");
+        return false;
+    }
+
+    if (isNaN(unidades) || unidades < 0) {
+        alert("Las unidades son obligatorias y el número registrado debe ser mayor o igual a 0.");
+        return false;
+    }
+
+    if (imagen === "") {
+        document.getElementById("form-img").value = "p09/img_2/imagen.png"; 
+    }
+
+    return true;
 }
