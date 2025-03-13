@@ -70,10 +70,7 @@ function agregarProducto(e) {
     var finalJSON = JSON.parse(productoJsonString);
     // SE AGREGA AL JSON EL NOMBRE DEL PRODUCTO
     finalJSON['nombre'] = document.getElementById('name').value;
-    
-    if (!validarFormulario()) {  // Verifica si la validación falla
-        return;  // Detiene la ejecución si el formulario no es válido
-    }
+
     // SE OBTIENE EL STRING DEL JSON FINAL
     productoJsonString = JSON.stringify(finalJSON,null,2);
 
