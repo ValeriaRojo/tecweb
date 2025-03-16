@@ -25,18 +25,18 @@ $(function(){
                     descripcion += '<li>detalles: '+product.detalles+'</li>';
 
                     template += `
-                        <li class="list-group-item">
+                        <li class="list-group-item" data-id = "${product.id}">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <strong>ID:</strong> ${product.id}
+                                    <td>${product.id}</td>
                                 </div>
                                 <div class="col-md-3">
                                     <strong>Nombre:</strong> ${product.nombre}
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <strong>Marca:</strong> ${product.marca}
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <strong>Descripción:</strong>
                                     <ul class="list-unstyled">
                                         ${descripcion.split(',').map(item => `<li>${item.trim()}</li>`).join('')}
