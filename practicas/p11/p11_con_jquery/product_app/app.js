@@ -32,6 +32,7 @@ function init() {
     listarProductos();
 }
 
+//Validamos datos de la base JSON para ser procesados o no
 function validaciones(product){
     if (!product.nombre || product.nombre.length > 100) {
         alert("Nombre obligatorio y no debe sobrepasar los 100 caracteres.");
@@ -66,49 +67,55 @@ function validaciones(product){
 
 }
 
+//Función para buscar producto
 function buscarProducto(){
-    //$('#search').keyup(function(e){
-        /**let search = $('#search').val();
+    $('#search').keyup(function(e){
+        e.preventDefault();
+        let search = $('#search').val();
         //console.log(search);
-        if (search === "") {
+        /**if (search === "") {
             $("#product-result").html("").removeClass("card my-4 d-block"); //Limpiamos si no existe búsqueda
             return;
         }*/
 
-        let lastSearch = ""; //Almacenamos última búsqueda
+        /**let lastSearch = ""; //Almacenamos última búsqueda
 
         $('#search').on('input', function (e) {
         let search = $(this).val().trim(); 
 
         if (search === lastSearch) return;
 
-        lastSearch = search; // Actualizamos la última búsqueda
+        lastSearch = search; // Actualizamos la última búsqueda*/
 
-        if (search === "") {
+        /**if (search === "") {
             $("#product-result").html("").removeClass("card my-4 d-block").html(""); // Limpiamos si no hay nada (búsqueda)
             return;
-        }
+        }*/
         
         $.ajax({
-            url: 'backend/product-search.php',
-            type: 'POST',
-            data: {search},
+            url: './backend/product-search.php',
+            type: 'GET',
+            data: {search: search},
             success: function(response){
                 //console.log(response);
                 let products = JSON.parse(response);
                 //console.log(products);
                 let template = '';
+                let template_bar= '';
 
                 products.forEach(product => {
                     if(product.eliminado == 0){
                         //console.log(product);
 
                         let descripcion = `
-                            <li>Precio: ${product.precio}</li>
-                            <li>Unidades: ${product.unidades}</li>
-                            <li>Modelo: ${product.modelo}</li>
-                            <li>Marca: ${product.marca}</li>
-                            <li>Detalles: ${product.detalles}</li>`;
+                            <ul>
+                                <li>Precio: ${product.precio}</li>
+                                <li>Unidades: ${product.unidades}</li>
+                                <li>Modelo: ${product.modelo}</li>
+                                <li>Marca: ${product.marca}</li>
+                                <li>Detalles: ${product.detalles}</li>
+                            </ul>
+                        `;
 
                         template += `
                             <li class="list-group-item" data-id = "${product.id}">
@@ -128,11 +135,16 @@ function buscarProducto(){
                                             ${descripcion.split(',').map(item => `<li>${item.trim()}</li>`).join('')}
                                         </ul>
                                     </div>
+                                    <div>
+                                        <button class="product-delete btn btn-danger" onclick= "eliminarProducto()">
+                                            Eliminar
+                                        </button>   
+                                    </div>
                                 </div>
                             </li>`;
                     }
                 });
-                
+
                 if (template) {
                     $("#product-result").addClass("card my-4 d-block").html(template); // Muestra la barra de estado
                 } else {
@@ -144,6 +156,7 @@ function buscarProducto(){
     });   
 }
 
+//Función de listar productos al incio de la página 
 function listarProductos(){
     $.ajax({
         url: 'backend/product-list.php',
