@@ -120,6 +120,7 @@ $(document).ready(function(){
 
     $('#product-form').submit(e => {
         e.preventDefault();
+        $('button.btn-primary').text("Agregar Producto");
 
         // SE CONVIERTE EL JSON DE STRING A OBJETO
         let postData = JSON.parse( $('#description').val() );
