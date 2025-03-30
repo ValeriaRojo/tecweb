@@ -7,6 +7,18 @@ var baseJSON = {
     "detalles": "NA",
     "imagen": "img/default.png"
   };
+  
+  function init() {
+    /**
+     * Convierte el JSON a string para poder mostrarlo
+     * ver: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/JSON
+     */
+    let JsonString = JSON.stringify(baseJSON,null,2);
+    document.getElementById("description").value = JsonString;
+
+    // SE LISTAN TODOS LOS PRODUCTOS
+    listarProductos();
+}
 
 $(document).ready(function(){
     console.log('jQuery está funcionando');
@@ -65,7 +77,7 @@ $(document).ready(function(){
                 type: 'GET',
                 success: function (response) {
                     if(!response.error) {
-                        let productos = JSON.parse(response);
+                        const productos = JSON.parse(response);
                         
                         if(Object.keys(productos).length > 0) {
                             let template = '';
@@ -112,14 +124,15 @@ $(document).ready(function(){
     $('#product-form').submit(e => {
         e.preventDefault();
 
+        //Agregamos validaciones
         function validaciones(product){
-            console.log(product)
+            //console.log(product)
             if (!product.nombre || product.nombre.length > 100) {
                 alert("Nombre obligatorio y no debe sobrepasar los 100 caracteres.");
                 return false;
             }
         
-            if (!product.marca) {
+            if (!product.marca || product.marca > 25) {
                 alert("Debe seleccionar una marca.");
                 return false;
             }
@@ -148,15 +161,25 @@ $(document).ready(function(){
 
         let postData = JSON.parse( $('#description').val() );
         postData['nombre'] = $('#name').val();
-        postData['id'] = $('#productId').val();
-
-        const url = edit === false ? './backend/product-add.php' : './backend/product-edit.php';
+        postData['id'] = $('#productId').val(); 
 
         if (!validaciones(postData)) {
             return;
         }
+
+        //Decidimos si se hace una inserción o actualización del producto
+        const url = edit === false ? './backend/product-add.php' : './backend/product-edit.php';
         
-        $.post(url, postData, (response) => {
+        $.post(url, JSON.stringify(postData), (response) => {
+            console.log("Datos que se envían al servidor:", JSON.stringify(postData, null, 2)); //Verificamos que se esté enviando los datos correctos
+            console.log("Respuesta del servidor:", response); // <-- Imprime la respuesta en la consola
+            try {
+                const respuesta = JSON.parse(response);
+                console.log("JSON válido:", respuesta);
+            } catch (e) {
+                console.error("Error al parsear JSON:", e);
+                alert("Error en la respuesta del servidor. Revisa la consola.");
+            }
             let respuesta = JSON.parse(response);
             let template_bar = '';
             template_bar += `

@@ -8,7 +8,7 @@
         'message' => 'Ya existe un producto con ese nombre'
     );
     if(!empty($producto)) {
-        // SE TRANSFORMA EL STRING DEL JASON A OBJETO
+        // SE TRANSFORMA EL STRING DEL JSON A OBJETO
         $jsonOBJ = json_decode($producto);
         // SE ASUME QUE LOS DATOS YA FUERON VALIDADOS ANTES DE ENVIARSE
         $sql = "SELECT * FROM productos WHERE nombre = '{$jsonOBJ->nombre}' AND eliminado = 0";
