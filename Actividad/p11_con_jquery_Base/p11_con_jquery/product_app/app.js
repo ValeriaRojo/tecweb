@@ -262,30 +262,29 @@ $(document).ready(function(){
                     mensaje = 'El nombre es obligatorio y debe tener máximo 100 caracteres.';
                     esValido = false;
                 } else {
-                    // Validación asíncrona para el nombre
                     $.ajax({
-                        url: './backend/product-check.php',
+                        url: './backend/product-name.php',
                         method: 'POST',
                         data: { nombre: valor },
                         dataType: 'json',
                         success: function (data) {
                             if (data.existe) {
-                                mensaje = 'El nombre del producto ya existe en la base de datos.';
+                                mensaje = 'El nombre del producto ya existe en la base de datos :c';
                                 esValido = false;
                             } else {
-                                mensaje = 'Nombre válido(sin coincidencias en la BD).';
+                                mensaje = 'Nombre válido =D';
                                 esValido = true;
                             }
-                            actualizarEstado(mensaje, esValido);  // Actualiza el estado con el mensaje
+                            actualizarEstado(mensaje, esValido);  
                         },
                         error: function (xhr, status, error) {
-                            console.error('Error al verificar el nombre:', error);
+                            console.error('Error al verificar el nombre D:', error);
                             mensaje = 'Hubo un error al verificar el nombre.';
                             esValido = false;
-                            actualizarEstado(mensaje, esValido);  // Actualiza el estado con el mensaje de error
+                            actualizarEstado(mensaje, esValido);  
                         }
                     });
-                    return;  // Detener el flujo aquí para no mostrar un mensaje de validación predeterminado mientras se espera la respuesta
+                    return;  
                 }
                 break;
             case 'marca':
@@ -330,15 +329,9 @@ $(document).ready(function(){
                 break;
         }
     
-        // Actualizar estado para los casos no asíncronos
         if (id !== 'name') {
             actualizarEstado(mensaje, esValido);
         }
     });
-    
-    // Ocultar barra de estado cuando el usuario deja de interactuar
-    //$('#name, #marca, #modelo, #precio, #detalles, #unidades').on('blur', function () {
-    //    $('#product-result').hide();
-    //});
     
 });
