@@ -7,18 +7,6 @@
         "detalles": "NA",
         "imagen": "img/default.png"
     };
-    
-    function init() {
-        /**
-         * Convierte el JSON a string para poder mostrarlo
-         * ver: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/JSON
-         */
-        let JsonString = JSON.stringify(baseJSON,null,2);
-        document.getElementById("description").value = JsonString;
-
-        // SE LISTAN TODOS LOS PRODUCTOS
-        listarProductos();
-    }
 
     $(document).ready(function(){
         console.log('jQuery está funcionando');
@@ -123,6 +111,7 @@
 
         $('#product-form').submit(e => {
             e.preventDefault();
+            $('button.btn-primary').text("Agregar Producto");
 
             //Agregamos validaciones
             function validaciones(product){
@@ -159,7 +148,7 @@
                 return true;
             }
 
-            let postData = JSON.parse( $('#description').val() );
+            let postData = JSON.parse($('#description').val());
             postData['nombre'] = $('#name').val();
             postData['id'] = $('#productId').val(); 
 
@@ -180,18 +169,36 @@
                     console.error("Error al parsear JSON:", e);
                     alert("Error en la respuesta del servidor. Revisa la consola.");
                 }
-                let respuesta = JSON.parse(response);
-                let template_bar = '';
-                template_bar += `
-                            <li style="list-style: none;">status: ${respuesta.status}</li>
-                            <li style="list-style: none;">message: ${respuesta.message}</li>
-                        `;
-                $('#name').val('');
-                $('#description').val(JsonString);
-                $('#product-result').show();
-                $('#container').html(template_bar);
-                listarProductos();
-                edit = false;
+                try {
+                    const respuesta = JSON.parse(response);
+                    console.log("JSON válido:", respuesta);
+                
+                    let template_bar = '';
+                    template_bar += `
+                        <li style="list-style: none;">status: ${respuesta.status}</li>
+                        <li style="list-style: none;">message: ${respuesta.message}</li>
+                    `;
+                
+                    $('#name').val('');
+                    $('#description').val(JsonString);
+                    $('#product-result').show();
+                    $('#container').html(template_bar);
+                
+                    // Reiniciar campos
+                    $('#precio').val("0.0");
+                    $('#unidades').val("1");
+                    $('#modelo').val("XX-000");
+                    $('#marca').val("NA");
+                    $('#detalles').val("NA");
+                    $('#imagen').val("img/default.png");
+                
+                    listarProductos();
+                    edit = false;
+                    $('button.btn-primary').text("Agregar Producto");
+                } catch (e) {
+                    console.error("Error al parsear JSON:", e);
+                    alert("Error en la respuesta del servidor. Revisa la consola.");
+                }
             });
         });
 
@@ -216,19 +223,110 @@
 
                 let product = JSON.parse(response);
                 $('#name').val(product.nombre);
+                $('#precio').val(product.precio);
+                $('#unidades').val(product.unidades);
+                $('#modelo').val(product.modelo);
+                $('#marca').val(product.marca);
+                $('#detalles').val(product.detalles);
+                $('#imagen').val(product.imagen);
                 $('#productId').val(product.id);
-                delete(product.nombre);
-                delete(product.eliminado);
-                delete(product.id);
-                let JsonString = JSON.stringify(product,null,2);
-                $('#description').val(JsonString);
-
-                console.log(JsonString);
-                
                 edit = true;
+                $('button.btn-primary').text("Modificar Producto");
             });
-            e.preventDefault();
-        });    
+                e.preventDefault();
+        });
+        
+        function actualizarEstado(mensaje, esValido) {
+            let clase = esValido ? 'valid' : 'invalid';
+            let template_bar = `<li style="list-style: none;" class="${clase}">${mensaje}</li>`;
+            $('#product-result').show();
+            $('#container').html(template_bar);
+        }
+        
+        $('#name, #marca, #modelo, #precio, #detalles, #unidades').on('input', function () {
+            let id = $(this).attr('id');
+            let valor = $(this).val();
+            let mensaje = '';
+            let esValido = true;
+            
+        
+            switch (id) {
+                case 'name':
+                    if (valor === '' || valor.length > 100) {
+                        mensaje = 'El nombre es obligatorio y debe tener máximo 100 caracteres.';
+                        esValido = false;
+                    } else {
+                        $.ajax({
+                            url: './backend/product-name.php',
+                            method: 'POST',
+                            data: { nombre: valor },
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data.existe) {
+                                    mensaje = 'El nombre del producto ya existe en la base de datos :c';
+                                    esValido = false;
+                                } else {
+                                    mensaje = 'Nombre válido =D';
+                                    esValido = true;
+                                }
+                                actualizarEstado(mensaje, esValido);  
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error al verificar el nombre D:', error);
+                                mensaje = 'Hubo un error al verificar el nombre.';
+                                esValido = false;
+                                actualizarEstado(mensaje, esValido);  
+                            }
+                        });
+                        return;  
+                    }
+                    break;
+                case 'marca':
+                    if (valor === '') {
+                        mensaje = 'Seleccione una marca.';
+                        esValido = false;
+                    } else {
+                        mensaje = 'Marca válida.';
+                    }
+                    break;
+                case 'modelo':
+                    if (valor === '' || valor.length > 25 || !/^[a-zA-Z0-9]*$/.test(valor)) {
+                        mensaje = 'El modelo debe ser alfanumérico y tener máximo 25 caracteres.';
+                        esValido = false;
+                    } else {
+                        mensaje = 'Modelo válido.';
+                    }
+                    break;
+                case 'precio':
+                    if (isNaN(parseFloat(valor)) || parseFloat(valor) <= 99.99) {
+                        mensaje = 'El precio debe ser mayor a 99.99.';
+                        esValido = false;
+                    } else {
+                        mensaje = 'Precio válido.';
+                    }
+                    break;
+                case 'detalles':
+                    if (valor.length > 250) {
+                        mensaje = 'Los detalles deben tener máximo 250 caracteres.';
+                        esValido = false;
+                    } else {
+                        mensaje = 'Detalles válidos.';
+                    }
+                    break;
+                case 'unidades':
+                    if (isNaN(parseInt(valor)) || parseInt(valor) < 0) {
+                        mensaje = 'Las unidades deben ser 0 o más.';
+                        esValido = false;
+                    } else {
+                        mensaje = 'Unidades válidas.';
+                    }
+                    break;
+            }
+        
+            if (id !== 'name') {
+                actualizarEstado(mensaje, esValido);
+            }
+        });
     });
 
 
