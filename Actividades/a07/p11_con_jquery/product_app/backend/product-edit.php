@@ -1,12 +1,11 @@
 <?php
     use TECWEB\MYAPI\Products as Products;
     require_once __DIR__ . '/myapi/Products.php';
-    
-    $json = file_get_contents('php://input');
-    $data = json_decode($json);
-    
-    $prodObj = new Products('marketzone');
-    $prodObj->edit($data);
-    
-    echo $prodObj->getData();
+
+    if (isset($_POST['id'])) {
+        $jsonOBJ = json_decode(json_encode($_POST));
+        $prodObj = new Products('marketzone');
+        $prodObj-> edit($jsonOBJ);
+        echo $prodObj->getData();
+    }
 ?>
