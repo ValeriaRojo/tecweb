@@ -22,7 +22,7 @@
                 if(!is_null($rows)) {
                     foreach($rows as $num => $row) {
                         foreach($row as $key => $value) {
-                            $data[$num][$key] = ($value);
+                            $this->data[$num][$key] = ($value);
                         }
                     }
                 }

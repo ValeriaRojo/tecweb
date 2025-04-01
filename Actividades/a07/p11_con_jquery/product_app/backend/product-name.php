@@ -1,20 +1,11 @@
 <?php
-include_once __DIR__.'/database.php';
+    use TECWEB\MYAPI\Products as Products;
+    require_once __DIR__ . '/myapi/Products.php';
 
-$response = ["existe" => false];
+    $name = $_POST['nombre'] ?? null;
 
-if (isset($_POST['nombre'])) {
-    $nombre = $conexion->real_escape_string($_POST['nombre']);
-    $sql = "SELECT id FROM productos WHERE nombre = '$nombre' AND eliminado = 0";
+    $prodObj = new Products('marketzone');
+    $prodObj->name($name);
 
-    $result = $conexion->query($sql);
-    if ($result && $result->num_rows > 0) {
-        $response["existe"] = true;
-    }
-
-    $result && $result->free();
-    $conexion->close();
-}
-
-echo json_encode($response, JSON_PRETTY_PRINT);
+    echo $prodObj->getData();
 ?>
