@@ -7,33 +7,36 @@
 
     class Products extends DataBase {
 
-        private $data = NULL;
-        //Constructor
+        private $data = []; //Cambiamos el data a un arreglo para almacenar los datos de manera temporal
+
+        //Constructor que recibe los parámetros
         public function __construct($db, $user='root', $pass='290105.') {
-            $this->data = array();
             parent:: __construct($user, $pass, $db);
         }
-        //Función para la lista de productos
-        public function list() {
-            $this->data = array();
 
-            if ( $result = $this->conexion->query("SELECT * FROM productos WHERE eliminado = 0") ) {
-                $rows = $result->fetch_all(MYSQLI_ASSOC);
-                if(!is_null($rows)) {
-                    foreach($rows as $num => $row) {
-                        foreach($row as $key => $value) {
-                            $this->data[$num][$key] = ($value);
-                        }
-                    }
-                }
+        //Función para la lista de productos
+        public function list(): array {
+            $this->data = [];
+            $sql = "SELECT * FROM productos WHERE eliminado = 0";
+
+            if ($result = $this->conexion->query($sql)) {
+                $rows = $result->fetch_all(\MYSQLI_ASSOC);
+                $this->data = $rows ?: []; 
                 $result->free();
             } else {
-                die('Query Error: '.mysqli_error($this->conexion));
+                $this->data = [
+                    'status'  => 'error',
+                    'message' => 'Query Error: ' . $this->conexion->error
+                ];
             }
+    
             $this->conexion->close();
+            return $this->data; //Retorna al arreglo.
         }
+
         //Función para búsqueda de productos
-        public function search($search) {
+        public function search($search): array {
+            $this->data = [];
             $sql = "SELECT * FROM productos 
                     WHERE (id = '{$search}' 
                     OR nombre LIKE '%{$search}%' 
@@ -42,39 +45,34 @@
                     AND eliminado = 0";
         
             if ($result = $this->conexion->query($sql)) {
-                $rows = $result->fetch_all(MYSQLI_ASSOC);
-        
-                if (!is_null($rows)) {
-                    foreach ($rows as $num => $row) {
-                        foreach ($row as $key => $value) {
-                            $this->data[$num][$key] = $value;
-                        }
-                    }
-                }
-        
+                $rows = $result->fetch_all(\MYSQLI_ASSOC);
+                $this->data = $rows ?: [];
                 $result->free();
             } else {
                 $this->data = [
-                    'status' => 'error',
-                    'message' => 'Error en la búsqueda: ' . mysqli_error($this->conexion)
+                    'status'  => 'error',
+                    'message' => 'Error en la búsqueda: ' . $this->conexion->error
                 ];
             }
-        
+
             $this->conexion->close();
+            return $this->data;
         }
 
-        public function getData() {
+        /*public function getData() {
             //Devuelve el contenido del atributo privado data y lo convierte a JSON.
             return json_encode($this->data, JSON_PRETTY_PRINT);
-        }
+        }*/
+
         //Función para inserción de productos
-        public function add($jsonOBJ) {
+        public function add($jsonOBJ): array {
+            $this->data = [];
             if (!isset($jsonOBJ->nombre)) {
                 $this->data = [
                     'status' => 'error',
                     'message' => 'Datos incompletos o JSON inválido'
                 ];
-                return;
+                return $this->data;
             }
         
             $sql = "SELECT * FROM productos WHERE nombre = '{$jsonOBJ->nombre}' AND eliminado = 0";
@@ -115,15 +113,19 @@
         
             $result->free();
             $this->conexion->close();
+            return $this->data;
         }
+
         //Función para eliminar productos
-        public function delete($id) {
+        public function delete(int $id): array {
+            $this->data = [];
+
             if (!$id) {
                 $this->data = [
                     'status' => 'error',
                     'message' => 'ID no proporcionado'
                 ];
-                return;
+                return $this->data;
             }
             $sql = "UPDATE productos SET eliminado = 1 WHERE id = {$id}";
             if ($this->conexion->query($sql)) {
@@ -139,15 +141,19 @@
             }
 
             $this->conexion->close();
+            return $this->data;
         }
+
         //Función para editar productos
-        public function edit($jsonOBJ) {
+        public function edit(object $jsonOBJ): array {
+            $this->data = [];
+
             if (!isset($jsonOBJ->id)) {
                 $this->data = [
                     'status' => 'error',
                     'message' => 'ID no proporcionado'
                 ];
-                return;
+                return $this->data;
             }
         
             $this->conexion->set_charset("utf8");
@@ -175,19 +181,88 @@
             }
         
             $this->conexion->close();
+            return $this->data;
         }
-        //Función para buscar por nombre los productos
-        public function name($nombre) {
+
+        //Función para buscar por id
+        public function single(int $id): array {
+            $this->data = [];
+            
+            if (!$id) {
+                $this->data = [
+                    'status' => 'error',
+                    'message' => 'ID no proporcionado'
+                ];
+                return $this->data;
+            }
+
+            $sql = "SELECT * FROM productos WHERE id = {$id}";
+
+            if ($result = $this->conexion->query($sql)) {
+                $row = $result->fetch_assoc();
+                $this->data = $row ?: [
+                    'status'  => 'error',
+                    'message' => 'Producto no encontrado'
+                ];
+                $result->free();
+            } else {
+                $this->data = [
+                    'status' => 'error',
+                    'message' => 'Error en la consulta: ' . mysqli_error($this->conexion)
+                ];
+            }
+
+            $this->conexion->close();
+            return $this->data;
+        }
+
+        //Búsqueda del producto por nombre en lugar de ID
+        public function singleByName(string $name): array {
+            $this->data = [];
+
+            if (!$name) {
+                $this->data = [
+                    'status' => 'error',
+                    'message' => 'Nombre no proporcionado'
+                ];
+                return $this->data;
+            }
+        
+            $this->conexion->set_charset("utf8");
+        
+            $sql = "SELECT * FROM productos WHERE nombre = '{$name}'";
+        
+            if ($result = $this->conexion->query($sql)) {
+                $row = $result->fetch_assoc();
+                $this->data = $row ?: [
+                    'status'  => 'error',
+                    'message' => 'Producto no encontrado'
+                ];
+                $result->free();
+                } else {
+                    $this->data = [
+                        'status'  => 'error',
+                        'message' => 'Error en la consulta: ' . $this->conexion->error
+                    ];
+                }
+        
+                $this->conexion->close();
+                return $this->data;
+            }
+
+         //Función para buscar por nombre los productos
+         public function name(string $nombre): array {
+            $this->data = [];
+
             if (!$nombre) {
                 $this->data = [
                     'status' => 'error',
                     'message' => 'Nombre no proporcionado'
                 ];
-                return;
+                return $this->data;
             }
         
             $nombre = $this->conexion->real_escape_string($nombre);
-        
             $sql = "SELECT id FROM productos WHERE nombre = '$nombre' AND eliminado = 0";
             $result = $this->conexion->query($sql);
         
@@ -197,77 +272,11 @@
                 $this->data['existe'] = true;
             }
         
-            $result && $result->free();
-            $this->conexion->close();
-        }
-        //Función para buscar por id
-        public function single($id) {
-            if (!$id) {
-                $this->data = [
-                    'status' => 'error',
-                    'message' => 'ID no proporcionado'
-                ];
-                return;
-            }
-
-            $sql = "SELECT * FROM productos WHERE id = {$id}";
-
-            if ($result = $this->conexion->query($sql)) {
-                $row = $result->fetch_assoc();
-
-                if (!is_null($row)) {
-                    foreach ($row as $key => $value) {
-                        $this->data[$key] = $value;
-                    }
-                }
-
+            if ($result) {
                 $result->free();
-            } else {
-                $this->data = [
-                    'status' => 'error',
-                    'message' => 'Error en la consulta: ' . mysqli_error($this->conexion)
-                ];
             }
-
             $this->conexion->close();
-        }
-        //Búsqueda del producto por nombre en lugar de ID
-        public function singleByName($name) {
-            if (!$name) {
-                $this->data = [
-                    'status' => 'error',
-                    'message' => 'Nombre no proporcionado'
-                ];
-                return;
-            }
-        
-            $this->conexion->set_charset("utf8");
-        
-            $sql = "SELECT * FROM productos WHERE nombre = '{$name}'";
-        
-            if ($result = $this->conexion->query($sql)) {
-                $row = $result->fetch_assoc();
-        
-                if (!is_null($row)) {
-                    foreach ($row as $key => $value) {
-                        $this->data[$key] = $value;
-                    }
-                } else {
-                    $this->data = [
-                        'status' => 'error',
-                        'message' => 'Producto no encontrado'
-                    ];
-                }
-        
-                $result->free();
-            } else {
-                $this->data = [
-                    'status' => 'error',
-                    'message' => 'Error en la consulta: ' . mysqli_error($this->conexion)
-                ];
-            }
-        
-            $this->conexion->close();
+            return $this->data;
         }        
     }
 ?>
