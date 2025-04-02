@@ -5,7 +5,7 @@
 
     require_once __DIR__ . '/DataBase.php';
 
-    class Products extends DataBase {
+    class Model extends DataBase {
 
         private $data = []; //Cambiamos el data a un arreglo para almacenar los datos de manera temporal
 
