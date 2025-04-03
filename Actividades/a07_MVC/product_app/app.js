@@ -25,7 +25,7 @@ $(document).ready(function(){
 
     function listarProductos() {
         $.ajax({
-            url: './backend/product-list.php',
+            url: './backend/View/router.php?action=list',
             type: 'GET',
             success: function(response) {
                 // SE OBTIENE EL OBJETO DE DATOS A PARTIR DE UN STRING JSON
@@ -71,7 +71,7 @@ $(document).ready(function(){
         if($('#search').val()) {
             let search = $('#search').val();
             $.ajax({
-                url: './backend/product-search.php?search='+$('#search').val(),
+                url: './backend/View/router.php?action=search&search='+$('#search').val(),
                 data: {search},
                 type: 'GET',
                 success: function (response) {
@@ -180,7 +180,7 @@ $(document).ready(function(){
             return;
         }
 
-        const url = edit === false ? './backend/product-add.php' : './backend/product-edit.php';
+        const url = edit === false ? './backend/View/router.php?action=add' : './backend/View/router.php?action=edit';
         
         $.post(url, postData, (response) => {
             //console.log(response);
@@ -213,7 +213,7 @@ $(document).ready(function(){
         if(confirm('¿Realmente deseas eliminar el producto?')) {
             const element = $(this)[0].activeElement.parentElement.parentElement;
             const id = $(element).attr('productId');
-            $.post('./backend/product-delete.php', {id}, (response) => {
+            $.post('./backend/View/router.php?action=delete', {id}, (response) => {
                 const respuesta = typeof response === "string" ? JSON.parse(response) : response;
                 const template_bar = `
                     <li style="list-style: none;">status: ${respuesta.status}</li>
@@ -230,7 +230,7 @@ $(document).ready(function(){
         $('button.btn-primary').text("Modificar Producto");
         const element = $(this)[0].activeElement.parentElement.parentElement;
         const id = $(element).attr('productId');
-        $.post('./backend/product-single.php', {id}, (response) => {
+        $.post('./backend/View/router.php?action=single', {id}, (response) => {
             // SE CONVIERTE A OBJETO EL JSON OBTENIDO
             let product = JSON.parse(response);
             // SE INSERTAN LOS DATOS ESPECIALES EN LOS CAMPOS CORRESPONDIENTES
@@ -269,7 +269,7 @@ $(document).ready(function(){
                     esValido = false;
                 } else {
                     $.ajax({
-                        url: './backend/product-name.php',
+                        url: './backend/View/router.php?action=name',
                         method: 'POST',
                         data: { nombre: valor },
                         dataType: 'json',

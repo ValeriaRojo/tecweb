@@ -5,15 +5,15 @@
 
     require_once __DIR__ . '/DataBase.php';
 
-    class Products extends DataBase {
+    class Model extends DataBase {
 
-        private $data = NULL;
-        //Constructor
+        private $data = NULL; //arreglo
+        //1. Constructor
         public function __construct($db, $user='root', $pass='290105.') {
             $this->data = array();
             parent:: __construct($user, $pass, $db);
         }
-        //Función para la lista de productos
+        //2. Función para la lista de productos
         public function list() {
             $this->data = array();
 
@@ -32,7 +32,7 @@
             }
             $this->conexion->close();
         }
-        //Función para búsqueda de productos
+        //3.- Función para búsqueda de productos
         public function search($search) {
             $sql = "SELECT * FROM productos 
                     WHERE (id = '{$search}' 
@@ -64,10 +64,11 @@
         }
 
         public function getData() {
-            //Devuelve el contenido del atributo privado data y lo convierte a JSON.
+            //4. Devuelve el contenido del atributo privado data y lo convierte a JSON.
             return json_encode($this->data, JSON_PRETTY_PRINT);
         }
-        //Función para inserción de productos
+
+        //5. Función para inserción de productos
         public function add($jsonOBJ) {
             if (!isset($jsonOBJ->nombre)) {
                 $this->data = [
@@ -116,7 +117,7 @@
             $result->free();
             $this->conexion->close();
         }
-        //Función para eliminar productos
+        //6. Función para eliminar productos
         public function delete($id) {
             if (!$id) {
                 $this->data = [
@@ -140,7 +141,7 @@
 
             $this->conexion->close();
         }
-        //Función para editar productos
+        //7. Función para editar productos
         public function edit($jsonOBJ) {
             if (!isset($jsonOBJ->id)) {
                 $this->data = [
@@ -176,7 +177,7 @@
         
             $this->conexion->close();
         }
-        //Función para buscar por nombre los productos
+        //8. Función para buscar por nombre los productos
         public function name($nombre) {
             if (!$nombre) {
                 $this->data = [
@@ -200,7 +201,7 @@
             $result && $result->free();
             $this->conexion->close();
         }
-        //Función para buscar por id
+        //9. Función para buscar por id
         public function single($id) {
             if (!$id) {
                 $this->data = [
@@ -231,7 +232,7 @@
 
             $this->conexion->close();
         }
-        //Búsqueda del producto por nombre en lugar de ID
+        //10. Búsqueda del producto por nombre en lugar de ID
         public function singleByName($name) {
             if (!$name) {
                 $this->data = [
