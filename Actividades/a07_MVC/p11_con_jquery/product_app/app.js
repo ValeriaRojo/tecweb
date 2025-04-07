@@ -25,10 +25,11 @@ $(document).ready(function(){
 
     function listarProductos() {
         $.ajax({
-            url: './backend/View/router.php?action=list',
+            url: './backend/myapi/controller.php?action=list',
             type: 'GET',
             success: function(response) {
                 // SE OBTIENE EL OBJETO DE DATOS A PARTIR DE UN STRING JSON
+                console.log("Respuesta cruda del backend:", response);
                 const productos = JSON.parse(response);
 
                 productosExistentes = productos;
@@ -71,12 +72,13 @@ $(document).ready(function(){
         if($('#search').val()) {
             let search = $('#search').val();
             $.ajax({
-                url: './backend/View/router.php?action=search&search='+$('#search').val(),
-                data: {search},
+                url: './backend/myapi/controller.php?action=search&search='+encodeURIComponent(search),
+                //data: {search},
                 type: 'GET',
                 success: function (response) {
                     if(!response.error) {
                         // SE OBTIENE EL OBJETO DE DATOS A PARTIR DE UN STRING JSON
+                        //console.log("Respuesta cruda:", response);
                         const productos = JSON.parse(response);
                         
                         // SE VERIFICA SI EL OBJETO JSON TIENE DATOS
@@ -180,7 +182,7 @@ $(document).ready(function(){
             return;
         }
 
-        const url = edit === false ? './backend/View/router.php?action=add' : './backend/View/router.php?action=edit';
+        const url = edit === false ? './backend/myapi/controller.php?action=add' : './backend/myapi/controller.php?action=edit';
         
         $.post(url, postData, (response) => {
             //console.log(response);
@@ -213,7 +215,7 @@ $(document).ready(function(){
         if(confirm('¿Realmente deseas eliminar el producto?')) {
             const element = $(this)[0].activeElement.parentElement.parentElement;
             const id = $(element).attr('productId');
-            $.post('./backend/View/router.php?action=delete', {id}, (response) => {
+            $.post('./backend/myapi/controller.php?action=delete', {id}, (response) => {
                 const respuesta = typeof response === "string" ? JSON.parse(response) : response;
                 const template_bar = `
                     <li style="list-style: none;">status: ${respuesta.status}</li>
@@ -230,7 +232,7 @@ $(document).ready(function(){
         $('button.btn-primary').text("Modificar Producto");
         const element = $(this)[0].activeElement.parentElement.parentElement;
         const id = $(element).attr('productId');
-        $.post('./backend/View/router.php?action=single', {id}, (response) => {
+        $.post('./backend/myapi/controller.php?action=single', {id}, (response) => {
             // SE CONVIERTE A OBJETO EL JSON OBTENIDO
             let product = JSON.parse(response);
             // SE INSERTAN LOS DATOS ESPECIALES EN LOS CAMPOS CORRESPONDIENTES
@@ -269,7 +271,7 @@ $(document).ready(function(){
                     esValido = false;
                 } else {
                     $.ajax({
-                        url: './backend/View/router.php?action=name',
+                        url: './backend/myapi/controller.php?action=name',
                         method: 'POST',
                         data: { nombre: valor },
                         dataType: 'json',

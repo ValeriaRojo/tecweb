@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <CatalogoVOD>
+        <cuenta>
+            <correo>username@gmail.com</correo>
+            <perfiles>
+                <perfil>
+                    <usuario>valesita</usuario>
+                    <idioma>English</idioma>
+                </perfil>
+                <perfil>
+                    <usuario>neoJC</usuario>
+                    <idioma>French</idioma>
+                </perfil>
+            </perfiles>
+        </cuenta>
+        <contenido>
+            <peliculas>
+                <genero>
+                    <nombre>Acción</nombre>
+                    <titulo>
+                        <nombre>Matrix</nombre>
+                        <duracion>130</duracion>
+                    </titulo>
+                    <titulo>
+                        <nombre>Terminator</nombre>
+                        <duracion>140</duracion>
+                    </titulo>
+                    <titulo>
+                        <nombre>Duro de matar</nombre>
+                        <duracion>150</duracion>
+                    </titulo>
+                    <titulo>
+                        <nombre>El Furor del Dragón</nombre>
+                        <duracion>120</duracion>
+                    </titulo>
+                </genero>
+                <genero>
+                    <nombre>Terror</nombre>
+                    <titulo>
+                        <nombre>El Conjuro</nombre>
+                        <duracion>145</duracion>
+                    </titulo>
+                    <titulo>
+                        <nombre>El silencio de los corderos</nombre>
+                        <duracion>155</duracion>
+                    </titulo>
+                    <titulo>
+                        <nombre>Juego del Miedo</nombre>
+                        <duracion>210</duracion>
+                    </titulo>
+                    <titulo>
+                        <nombre>La Bruja</nombre>
+                        <duracion>135</duracion>
+                    </titulo>
+                </genero>
+            </peliculas>
+            <programas>
+                <genero>
+                    <nombre>Suspenso</nombre>
+                    <titulo>
+                        <nombre>American Horror Story</nombre>
+                        <duracion>100</duracion>
+                    </titulo>
+                    <titulo>
+                        <nombre>Marianne</nombre>
+                        <duracion>110</duracion>
+                    </titulo>
+                    <titulo>
+                        <nombre>La Maldición de Hill House</nombre>
+                        <duracion>110</duracion>
+                    </titulo>
+                    <titulo>
+                        <nombre>Stranger Things</nombre>
+                        <duracion>114</duracion>
+                    </titulo>
+                </genero>
+                <genero>
+                    <nombre>Comedia</nombre>
+                    <titulo>
+                        <nombre>BoJack Horseman</nombre>
+                        <duracion>330</duracion>
+                    </titulo>
+                    <titulo>
+                        <nombre>Drake y Josh</nombre>
+                        <duracion>135</duracion>
+                    </titulo>
+                    <titulo>
+                        <nombre>¡Carly</nombre>
+                        <duracion>245</duracion>
+                    </titulo>
+                    <titulo>
+                        <nombre>Los Simpson</nombre>
+                        <duracion>215</duracion>
+                    </titulo>
+                </genero>
+            </programas>
+        </contenido>
+    </CatalogoVOD>

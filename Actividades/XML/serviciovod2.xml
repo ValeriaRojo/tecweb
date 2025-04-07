@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <CatalogoVOD>
+        <cuenta correo="username@gmail.com">
+            <perfiles>
+                <perfil usuario="valesita" idioma="English"/>
+                <perfil usuario="neoJC" idioma="French"/>
+            </perfiles>
+        </cuenta>
+        <contenido>
+            <peliculas>
+                <genero nombre="Acción">
+                    <titulo duracion="130">Matrix</titulo>
+                    <titulo duracion="140">Terminator</titulo>
+                    <titulo duracion="150">Duro de matar</titulo>
+                    <titulo duracion="120">El Furor del Dragón</titulo>
+                </genero>
+                <genero nombre="Terror">
+                    <titulo duracion="145">El Conjuro</titulo>
+                    <titulo duracion="155">El silencio de los corderos</titulo>
+                    <titulo duracion="210">Juego del Miedo</titulo>
+                    <titulo duracion="135">La Bruja</titulo>
+                </genero>
+            </peliculas>
+            <programas>
+                <genero nombre="Suspenso">
+                    <titulo duracion="100">American Horror Story</titulo>
+                    <titulo duracion="110">Marianne</titulo>
+                    <titulo duracion="110">La Maldición de Hill House</titulo>
+                    <titulo duracion="114">Stranger Things</titulo>
+                </genero>
+                <genero nombre="Comedia">
+                    <titulo duracion="330">BoJack Horseman</titulo>
+                    <titulo duracion="135">Drake y Josh</titulo>
+                    <titulo duracion="245">iCarly</titulo>
+                    <titulo duracion="215">Los Simpson</titulo>
+                </genero>
+            </programas>
+        </contenido>
+    </CatalogoVOD>
